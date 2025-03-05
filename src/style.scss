@@ -1,0 +1,100 @@
+.gutenberg-slider-block,
+.gutenberg-slider-block-frontend {
+  position: relative;
+
+  .embla {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    display: flex;
+  }
+
+  .embla__slide,
+  .gutenberg-slider-slide-edit {
+    position: relative;
+    flex: 0 0 100%;
+    min-width: 0;
+    height: 400px; // Adjust height as needed
+    background-size: cover;
+    background-position: center;
+  }
+
+  .gutenberg-slider-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .gutenberg-slider-content {
+    color: white;
+    padding: 20px;
+  }
+
+  .gutenberg-slider-heading {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+
+  .gutenberg-slider-subheading {
+    margin-bottom: 20px;
+  }
+
+  .gutenberg-slider-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .gutenberg-slider-prev,
+  .gutenberg-slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .gutenberg-slider-prev {
+    left: 10px;
+  }
+
+  .gutenberg-slider-next {
+    right: 10px;
+  }
+
+  .gutenberg-slider-slide-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+
+    img {
+      margin-bottom: 10px;
+    }
+
+    .components-button.is-destructive {
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+:where(.editor-styles-wrapper) .block-editor-block-list__layout .wp-block-button .wp-block-button__link,
+:where(.editor-styles-wrapper) .block-editor-block-list__layout .button,
+:where(.editor-styles-wrapper) .block-editor-block-list__layout .wp-block-button .wp-block-button__link,
+:where(.editor-styles-wrapper) .block-editor-block-list__layout .button {
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--accent);
+  padding: var(--padding);
+}
+
+:where(.editor-styles-wrapper) .is-style-outline a.button,
+:where(.editor-styles-wrapper) .is-style-outline a.button:visited,
+:where(.editor-styles-wrapper) .is-style-outline .wp-block-button__link:not(.has-background) {
+  background-color: transparent;
+  color: var(--accent);
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: var(--base-3);
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+}
