@@ -1,13 +1,25 @@
-const path = require('path');
+import { resolve as _resolve } from 'path';
+import defaultConfig, { module as _module } from '@wordpress/scripts/config/webpack.config';
 
-module.exports = {
-  entry: {
-    editor: './src/index.js',
-    frontend: './src/frontend.js'
-  },
+export default {
+  ...defaultConfig,
+  entry: './src/index.tsx',
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: _resolve(__dirname, 'build'),
+    filename: 'index.js',
   },
-  mode: 'production'
+  module: {
+    ..._module,
+    rules: [
+      ..._module.rules,
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
 };

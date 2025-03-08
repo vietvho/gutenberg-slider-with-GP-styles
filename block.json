@@ -7,8 +7,8 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:build/index.css",
-  "script": "file:./frontend.js",
+  "editorScript": "file:./build/index.tsx.js",
+  "editorStyle": "file:./build/index.tsx.css",
+  "script": "file:./frontend.ts.js",
   "style": "file:./style.css"
 }
