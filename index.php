@@ -20,8 +20,14 @@ class Winc_Customizer_Layout_Spacing {
         add_action( 'wp_enqueue_scripts', [$this,'winc_enqueue_script'] );
         add_action('init', [$this,'embla_slider_register_block']);
         add_action( 'enqueue_block_assets', [$this,'winc_slider_block_enqueue_block_assets'] );
+        
+        add_filter('upload_mimes', [$this,'winc_mime_types']); 
     }
-
+    public function winc_mime_types($mimes) {
+        $mimes['svg'] = 'image/svg+xml'; 
+        $mimes['svgz'] = 'image/svg+xml';
+        return $mimes;
+    }
     public function winc_button_default_attributes() {
         $padding_button = get_option('button_spacing_settings');
         return [
@@ -184,9 +190,7 @@ class Winc_Customizer_Layout_Spacing {
     }
 
     public function winc_add_editor_styles( $editor_styles ) {
-        echo 'here';
         $editor_styles[] = plugin_dir_url( __FILE__ ) . 'css/admin/style.css';
-        var_dump($editor_styles);
 
 		return $editor_styles;
 	}
@@ -194,9 +198,9 @@ class Winc_Customizer_Layout_Spacing {
     public function winc_slider_block_enqueue_block_assets() {
         wp_enqueue_script(
             'embla-slider-editor-js',
-            plugins_url('build/index.js', __FILE__),
+            plugins_url('build/index.tsx.js', __FILE__),
             ['wp-blocks', 'wp-editor', 'wp-element'],
-            filemtime(plugin_dir_path(__FILE__) . 'build/index.js'),
+            filemtime(plugin_dir_path(__FILE__) . 'build/index.tsx.js'),
             true
         );
 
