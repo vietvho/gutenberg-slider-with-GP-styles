@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "wp-scripts build src/frontend.ts src/index.tsx",
-    "start": "wp-scripts start",
+    "start": "wp-scripts start src/frontend.ts src/index.tsx",
     "buildfe": "wp-scripts build src/frontend.js",
     "build:sass": "sass scss/frontend/style.scss css/frontend/style.css",
     "build:adminsass": "sass scss/admin/style.scss css/admin/style.css",
@@ -42,6 +42,7 @@
     "@wordpress/blocks": "^14.8.0",
     "@wordpress/components": "^29.5.0",
     "@wordpress/element": "^6.19.0",
+    "clsx": "^2.1.1",
     "embla-carousel": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "react-textarea-autosize": "^8.5.7"

@@ -1,19 +1,24 @@
 :where(.editor-styles-wrapper) .block-editor-block-list__layout .wp-block-button .wp-block-button__link,
 :where(.editor-styles-wrapper) .block-editor-block-list__layout .button,
 :where(.editor-styles-wrapper) .block-editor-block-list__layout .wp-block-button .wp-block-button__link,
-:where(.editor-styles-wrapper) .block-editor-block-list__layout .button {
+:where(.editor-styles-wrapper) .block-editor-block-list__layout .button,
+.wp-block-custom-embla-slider .button {
   border-radius: var(--border-radius);
   border: var(--border-width) solid var(--accent);
   padding: var(--padding);
 }
 
+.wp-block-custom-embla-slider .button.is-style-outline,
 :where(.editor-styles-wrapper) .is-style-outline a.button,
 :where(.editor-styles-wrapper) .is-style-outline a.button:visited,
 :where(.editor-styles-wrapper) .is-style-outline .wp-block-button__link:not(.has-background) {
   background-color: transparent;
   color: var(--accent);
 }
-:where(.editor-styles-wrapper) .is-style-outline a.button:active, :where(.editor-styles-wrapper) .is-style-outline a.button:focus, :where(.editor-styles-wrapper) .is-style-outline a.button:hover,
+.wp-block-custom-embla-slider .button.is-style-outline:active, .wp-block-custom-embla-slider .button.is-style-outline:focus, .wp-block-custom-embla-slider .button.is-style-outline:hover,
+:where(.editor-styles-wrapper) .is-style-outline a.button:active,
+:where(.editor-styles-wrapper) .is-style-outline a.button:focus,
+:where(.editor-styles-wrapper) .is-style-outline a.button:hover,
 :where(.editor-styles-wrapper) .is-style-outline a.button:visited:active,
 :where(.editor-styles-wrapper) .is-style-outline a.button:visited:focus,
 :where(.editor-styles-wrapper) .is-style-outline a.button:visited:hover,

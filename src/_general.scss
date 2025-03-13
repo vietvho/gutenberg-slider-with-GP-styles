@@ -1,25 +1,59 @@
-.embla {
+@import "./mq";
+
+$mobile_screen: 960px;
+
+.wnslide {
   overflow: hidden;
 }
 
-.embla__viewport {
+.wnslide__viewport {
   overflow: hidden;
 }
 
-.embla__container {
+.wnslide__container {
   display: flex;
 }
 
-.embla__slide {
+.wnslide__slide {
   flex: 0 0 100%;
-background-color: #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  position: relative;
+  flex: 0 0 var(--slideWidthMobile);
+  @include useMq($mobile_screen, "min") {
+    flex: 0 0 var(--slideWidthDesktop);
+  }
 }
 
-.embla__slide__container {
+.wnslide__slide__container {
   padding: 16px;
-  display: flex;
-  flex-direction: column;
+
+  @include useMq($mobile_screen, "min") {
+    padding: 32px;
+  }
+}
+
+.wnslide__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.312) 0%, rgba(0, 0, 0, 0.312) 48%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.wnslide__primary__text {
+  font-size: var(--primaryMobTextSize);
+
+  @include useMq($mobile_screen, "min") {
+    font-size: var(--primaryDeskTextSize);
+  }
+}
+
+.wnslide__secondary__text {
+  font-size: var(--secondaryMobTextSize);
+
+  @include useMq($mobile_screen, "min") {
+    font-size: var(--secondaryDeskTextSize);
+  }
 }
 
 // styling
@@ -33,4 +67,70 @@ background-color: #0093E9;
 
 .mb-4 {
   margin-bottom: 16px;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.border-b {
+    border-bottom: 1px solid;
+  }
+.border-r {
+  border-right: 1px solid ;
+}
+
+.text{
+  &-primary {
+    color: var(--wp-admin-theme-color);
+  }
+}
+
+.text{
+  &-center {
+    text-align: center;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-left {
+    text-align: left;
+  }
+}
+
+.px-4 {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.items{
+  &-center{
+  align-items: center;
+  }
+
+  &-start {
+    align-items: flex-start;
+  }
+
+  &-end {
+    align-items: flex-end;
+  }
+}
+
+.justify{
+  &-center {
+    justify-content: center;
+  }
+
+  &-start {
+    justify-content: flex-start;
+  }
+
+  &-end {
+    justify-content: flex-end;
+  }
+}
+
+.relative {
+  position: relative;
 }

@@ -9,9 +9,14 @@
     "skipLibCheck": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "outDir": "./build"
+    "outDir": "./build",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "src/types/custom.d.ts"
   ]
 }

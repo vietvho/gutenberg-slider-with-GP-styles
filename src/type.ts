@@ -13,12 +13,15 @@ export type BUTTON = {
 }
 type Heading = {
   text: string;
-  size: number;
+  sizes: number[];
   tag: keyof HTMLElementTagNameMap;
   color: string,
 }
 
+export type AlignmentProps = "center" | "top left" | "top center" | "top right" | "center left" | "center center" | "center right" | "bottom left" | "bottom center" | "bottom right";
+
 export type SLIDE = {
+  alignment: AlignmentProps;
   background: string,
   heading: Heading,
   secondaryHeading: Heading,
@@ -31,20 +34,21 @@ export const DEFAULT_BUTTON: BUTTON = {
   link: '#',
   style: 'fill'
 };
-
+import BackgroundUrl from "../assets/placeholder.jpg";
 export const BASE_SLIDE: SLIDE = {
-  background: '',
+  alignment: "bottom left",
+  background: BackgroundUrl,
   heading: {
     text: 'Primary Text',
-    size: 20,
+    sizes: [40,86],
     tag: 'h2',
-    color: '#000'
+    color: '#fff'
   },
   secondaryHeading: {
     text: 'Secondary Text',
-    size: 60,
+    sizes: [16,16],
     tag: 'h2',
-    color: '#000'
+    color: '#fff'
   },
   buttons: [DEFAULT_BUTTON],
   accordionContent: 'Additional slide details...'
@@ -81,7 +85,7 @@ export const blockAttributes = {
   },
   overlay: {
     type: "boolean",
-    default: false,
+    default: true,
   },
   progressColor: {
     type: "string",
@@ -97,7 +101,7 @@ export const blockAttributes = {
   },
   slideHeight: {
     type: "number",
-    default: 50,
+    default: 68,
   },
 };
 
