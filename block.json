@@ -9,6 +9,6 @@
   },
   "editorScript": "file:./build/index.tsx.js",
   "editorStyle": "file:./build/index.tsx.css",
-  "script": "file:./frontend.ts.js",
-  "style": "file:./style.css"
+  "script": "file:./build/frontend.ts.js",
+  "style": "file:./build/index.tsx.css"
 }

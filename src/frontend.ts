@@ -1,11 +1,21 @@
-// Frontend Script (embla-frontend.js)
-import emblaCarousel from 'embla-carousel';
+import EmblaCarousel from "embla-carousel";
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.embla').forEach((slider) => {
-    const emblaNode = slider.querySelector('.embla__viewport');
-    if (emblaNode) {
-      emblaCarousel(emblaNode);
+document.addEventListener("DOMContentLoaded", () => {
+  const emblaNodes = [...document.querySelectorAll(".wnslider")] as HTMLElement[];
+  emblaNodes.forEach(emblaNode  => {
+    const embla = EmblaCarousel(emblaNode, { loop: true });
+    const autoplay = () => {
+      setInterval(() => {
+        if (embla.canScrollNext()) {
+          embla.scrollNext();
+        } else {
+          embla.scrollTo(0); // Go back to the first slide
+        }
+      }, 3000); // Change slides every 3 seconds
+    };
+
+    if (emblaNode.dataset.autoplay === "true"){
+      autoplay(); // Start AutoPlay
     }
   });
 });

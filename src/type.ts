@@ -63,6 +63,10 @@ export const blockAttributes = {
     type: "boolean",
     default: true,
   },
+  autoPlay: {
+    type: "boolean",
+    default: false,
+  },
   sliderGap: {
     type: "number",
     default: 15

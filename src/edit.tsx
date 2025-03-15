@@ -33,7 +33,7 @@ const WURLInput = URLInput as React.FC<URLInput.Props>;
 const WPanelColorSettings = PanelColorSettings as React.FC<PanelColorSettings.Props>;
 
 export default function Edit({ attributes, setAttributes }: BlockEditProps<BlockProps>) {
-  const { slides, showArrows, arrowSVG, showDots, slideWidthDesktop, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap } = attributes;
+  const { slides, showArrows, arrowSVG, showDots, slideWidthDesktop, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap, autoPlay } = attributes;
   const pluginUrl = useMemo(() => window.emblaSliderData?.pluginUrl || '', [window.emblaSliderData]);
   const DEFAULT_SLIDE: SLIDE = { ...BASE_SLIDE,  background: `${pluginUrl}assets/placeholder.jpg`};
 
@@ -151,11 +151,15 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                     checked={overlay}
                     onChange={(value) => setAttributes({ overlay: value })}
                   />
+                  <ToggleControl
+                    label="Autoplay"
+                    checked={autoPlay}
+                    onChange={(value) => setAttributes({ autoPlay: value })}
+                  />
                   <RangeControl
                     label="Gap (px)"
                     value={sliderGap}
                     onChange={(value) => setAttributes({ sliderGap: value })}
-                    min={15}
                     max={100}
                   />
                   <RangeControl
@@ -222,7 +226,7 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                         <RangeControl
                           width="50%"
                           label="Desktop Text Size"
-                          value={slide.heading.sizes[0]}
+                          value={slide.heading.sizes[1]}
                           onChange={(size) => updateSlide(index, { heading: { ...slide.heading, sizes: [slide.heading.sizes[0], size || 20] } })}
                           min={12}
                           max={120}
@@ -231,7 +235,7 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                           label="Tag"
                           value={slide.heading.tag}
                           options={['h1', 'h2', 'h3', 'h4', 'h5', 'h6','p'].map(tag => ({ label: tag.toUpperCase(), value: tag }))}
-                          onChange={(tag) => updateSlide(index, { heading: { ...slide.heading, tag: tag } })}
+                          onChange={(tag ) => updateSlide(index, { heading: { ...slide.heading, tag: tag as keyof HTMLElementTagNameMap } })}
                         />
                         <WPanelColorSettings
                           title={'Text Color'}
