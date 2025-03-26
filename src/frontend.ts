@@ -1,21 +1,27 @@
 import EmblaCarousel from "embla-carousel";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const emblaNodes = [...document.querySelectorAll(".wnslider")] as HTMLElement[];
-  emblaNodes.forEach(emblaNode  => {
-    const embla = EmblaCarousel(emblaNode, { loop: true });
-    const autoplay = () => {
-      setInterval(() => {
-        if (embla.canScrollNext()) {
-          embla.scrollNext();
-        } else {
-          embla.scrollTo(0); // Go back to the first slide
-        }
-      }, 3000); // Change slides every 3 seconds
+  const wnslideNodes = document.querySelectorAll(".wnslide");
+  console.log(wnslideNodes); // Check if it now logs elements
+
+  wnslideNodes.forEach((wnslideNode) => {
+    const wnslidePrev = wnslideNode.querySelector(".wnslide__prev") as HTMLButtonElement;
+    const wnslideNext = wnslideNode.querySelector(".wnslide__next") as HTMLButtonElement;
+    const wnslideViewport = wnslideNode.querySelector(".wnslide__viewport") as HTMLElement;
+
+    if (!wnslideViewport) return;
+
+    const wnslideApi = EmblaCarousel(wnslideViewport, { loop: false });
+
+    const updateButtons = () => {
+      wnslidePrev.disabled = !wnslideApi.canScrollPrev();
+      wnslideNext.disabled = !wnslideApi.canScrollNext();
     };
 
-    if (emblaNode.dataset.autoplay === "true"){
-      autoplay(); // Start AutoPlay
-    }
+    wnslideApi.on("select", updateButtons);
+    updateButtons();
+
+    wnslidePrev.addEventListener("click", () => wnslideApi.scrollPrev());
+    wnslideNext.addEventListener("click", () => wnslideApi.scrollNext());
   });
 });

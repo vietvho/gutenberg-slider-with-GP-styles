@@ -47,7 +47,7 @@ export const BASE_SLIDE: SLIDE = {
   secondaryHeading: {
     text: 'Secondary Text',
     sizes: [16,16],
-    tag: 'h2',
+    tag: 'p',
     color: '#fff'
   },
   buttons: [DEFAULT_BUTTON],
@@ -63,6 +63,15 @@ export const blockAttributes = {
     type: "boolean",
     default: true,
   },
+  roundedArrows: {
+    type: "boolean",
+    default: false,
+  },
+  arrowStyle: {
+    type: "string",
+    default: "fill",
+  },
+  
   autoPlay: {
     type: "boolean",
     default: false,
@@ -71,9 +80,9 @@ export const blockAttributes = {
     type: "number",
     default: 15
   },
-  arrowSVG: {
+  arrowIcon: {
     type: "string",
-    default: "",
+    default: "ThinChevron",
   },
   dotSVG: {
     type: "string",

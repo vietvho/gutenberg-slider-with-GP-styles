@@ -10,6 +10,7 @@ import {
 } from '@wordpress/block-editor';
 
 import { BlockEditProps } from '@wordpress/blocks';
+import ButtonGroup from './components/ButtonGroups';
 import {
   PanelBody,
   Button,
@@ -18,12 +19,16 @@ import {
   RangeControl,
   ToggleControl,
   TabPanel,
+  FontSizePicker,
   AlignmentMatrixControl
 } from '@wordpress/components';
 import useEmblaCarousel from 'embla-carousel-react';
 import "./editor.scss";
 import { BUTTON, ATTR, SLIDE, DEFAULT_BUTTON, BASE_SLIDE } from './type';
 import usePosition from './usePosition';
+import { Icon } from './components/icon';
+import { __ } from '@wordpress/i18n';
+import { fontSizes } from './constant';
 
 type BlockProps = Omit<ATTR, "slides"> & {
   slides: SLIDE[];
@@ -33,7 +38,7 @@ const WURLInput = URLInput as React.FC<URLInput.Props>;
 const WPanelColorSettings = PanelColorSettings as React.FC<PanelColorSettings.Props>;
 
 export default function Edit({ attributes, setAttributes }: BlockEditProps<BlockProps>) {
-  const { slides, showArrows, arrowSVG, showDots, slideWidthDesktop, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap, autoPlay } = attributes;
+  const { slides, showArrows, arrowIcon, showDots, slideWidthDesktop, arrowStyle, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap, autoPlay, roundedArrows } = attributes;
   const pluginUrl = useMemo(() => window.emblaSliderData?.pluginUrl || '', [window.emblaSliderData]);
   const DEFAULT_SLIDE: SLIDE = { ...BASE_SLIDE,  background: `${pluginUrl}assets/placeholder.jpg`};
 
@@ -80,7 +85,7 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
       <InspectorControls>
         <TabPanel 
           className="wtabs"
-          activeClass="text-primary border-b"
+          activeClass="text-theme-primary border-b"
           tabs={[
             {
               name: 'settings',
@@ -104,17 +109,32 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                     onChange={() => setAttributes({ ...attributes, showArrows: !showArrows })}
                   />
                   <div className="arrows flex gap-4 mb-4">
-
-                    <MediaUpload
-                      onSelect={(media) => setAttributes({ arrowSVG: media.url })}
-                      allowedTypes={['image']}
-                      render={({ open }) => (
-                        <Button onClick={open} isSecondary>
-                          {arrowSVG ? 'Change Arrow Icon' : 'Upload Arrow'}
-                        </Button>
-                      )}
-                    />
+                   <ButtonGroup 
+                      options={[
+                        { value: "ThinChevron", icon: <Icon name="ThinChevron" className='w-5 h-5' /> },
+                        { value: "Chevron", icon: <Icon name="Chevron" className='w-5 h-5' /> },
+                        { value: "ThinArrow", icon: <Icon name="ThinArrow" className='w-5 h-5' /> },
+                        { value: "Arrow", icon: <Icon name="Arrow" className='w-5 h-5' /> },
+                        { value: "Triangle", icon: <Icon name="Triangle" className='w-5 h-5' /> },
+                        { value: "ThinTriangle", icon: <Icon name="ThinTriangle" className='w-5 h-5' /> },
+                      ]}
+                      value={arrowIcon}
+                      onChange={(value) => setAttributes({ arrowIcon: value })}
+                   />
                   </div>
+                  <ButtonGroup
+                    options={[
+                      { value: "fill", text: "Fill" },
+                      { value: "outline", text: "Outline"},
+                    ]}
+                    value={arrowStyle}
+                    onChange={(value) => setAttributes({ arrowStyle: value })}
+                  />
+                  <ToggleControl
+                    label="Rounded Arrows"
+                    checked={roundedArrows}
+                    onChange={() => setAttributes({ roundedArrows: !roundedArrows })}
+                  />
 
                   <ToggleControl
                     label="Show Dots"
@@ -129,7 +149,7 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                         allowedTypes={['image']}
                         render={({ open }) => (
                           <Button onClick={open} isSecondary>
-                            {arrowSVG ? 'Dot Icon' : 'Upload Dot Icon'}
+                            {dotSVG ? 'Dot Icon' : 'Upload Dot Icon'}
                           </Button>
                         )}
                       />
@@ -210,19 +230,38 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                             </Button>
                           )}
                         />
+                        <PanelBody title={`Primary Text`} key="primary-text-panel" initialOpen={false} >
+                          <div className="flex gap-2">
+                            <SelectControl
+                              label="Tag"
+                              value={slide.heading.tag}
+                              options={['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].map(tag => ({ label: tag.toUpperCase(), value: tag }))}
+                              onChange={(tag) => updateSlide(index, { heading: { ...slide.heading, tag: tag as keyof HTMLElementTagNameMap } })}
+                            />
+                            <WPanelColorSettings
+                              className="custom-color-panel"
+                              colorSettings={[
+                                {
+                                  value: slide.heading.color,
+                                  onChange: (color) => updateSlide(index, { heading: { ...slide.heading, color: color || "#fff" } }),
+                                  label: 'Text Color',
+                                },
+                              ]}
+                            />
+                          </div>
                         <TextControl
                           label="Primary Text"
                           value={slide.heading.text}
                           onChange={(text) => updateSlide(index, { heading: { ...slide.heading, text } })}
                         />
-                        <RangeControl
-                          width="50%"
-                          label="Mobile Text Size"
-                          value={slide.heading.sizes[0]}
-                          onChange={(size) => updateSlide(index, { heading: { ...slide.heading, sizes: [size || 20,slide.heading.sizes[1]] } })}
-                          min={12}
-                          max={120}
+                        <label>Desktop Size</label>
+                        <FontSizePicker
+                          withSlider={true}
+                          fontSizes={fontSizes}
+                          value={slide.heading.sizes[1]}
+                          onChange={(size) => updateSlide(index, { heading: { ...slide.heading, sizes: [slide.heading.sizes[0], size as number ] } })}
                         />
+                       
                         <RangeControl
                           width="50%"
                           label="Desktop Text Size"
@@ -231,23 +270,28 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                           min={12}
                           max={120}
                         />
-                        <SelectControl
-                          label="Tag"
-                          value={slide.heading.tag}
-                          options={['h1', 'h2', 'h3', 'h4', 'h5', 'h6','p'].map(tag => ({ label: tag.toUpperCase(), value: tag }))}
-                          onChange={(tag ) => updateSlide(index, { heading: { ...slide.heading, tag: tag as keyof HTMLElementTagNameMap } })}
-                        />
-                        <WPanelColorSettings
-                          title={'Text Color'}
-                          colorSettings={[
-                            {
-                              value: slide.heading.color,
-                              onChange: (color) => updateSlide(index, { heading: { ...slide.heading, color: color || "#fff" } }),
-                              label: 'Text Color',
-                            },
-                          ]}
-                        />
-                        <div className="mb-4">
+                      
+                       
+                        </PanelBody>
+                        <PanelBody title={`Secondary Text`} key="secondary-text-panel" initialOpen={false} >
+                          <div className="flex gap-2 mb-4">
+                            <SelectControl
+                              label="Tag"
+                              value={slide.secondaryHeading.tag}
+                              options={['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].map(tag => ({ label: tag.toUpperCase(), value: tag }))}
+                              onChange={(tag) => updateSlide(index, { secondaryHeading: { ...slide.secondaryHeading, tag: tag as keyof HTMLElementTagNameMap } })}
+                            />
+                            <WPanelColorSettings
+                              className="custom-color-panel"
+                              colorSettings={[
+                                {
+                                  value: slide.secondaryHeading.color,
+                                  onChange: (color) => updateSlide(index, { secondaryHeading: { ...slide.secondaryHeading, color: color || "#fff" } }),
+                                  label: 'Heading Color',
+                                },
+                              ]}
+                            />
+                            </div>
                           <TextControl
                             label="Secondary Text"
                             value={slide.secondaryHeading.text}
@@ -269,23 +313,8 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                             min={12}
                             max={120}
                           />
-                          <SelectControl
-                            label="Tag"
-                            value={slide.secondaryHeading.tag}
-                            options={['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].map(tag => ({ label: tag.toUpperCase(), value: tag }))}
-                            onChange={(tag) => updateSlide(index, { secondaryHeading: { ...slide.secondaryHeading, tag: tag } })}
-                          />
-                          <WPanelColorSettings
-                            title={'Heading Color'}
-                            colorSettings={[
-                              {
-                                value: slide.secondaryHeading.color,
-                                onChange: (color) => updateSlide(index, { secondaryHeading: { ...slide.secondaryHeading, color: color || "#fff" } }),
-                                label: 'Heading Color',
-                              },
-                            ]}
-                          />
-                        </div>
+                         
+                        </PanelBody>
                         <div>
 
                         </div>

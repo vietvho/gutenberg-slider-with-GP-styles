@@ -1,25 +1,29 @@
-import { resolve as _resolve } from 'path';
-import defaultConfig, { module as _module } from '@wordpress/scripts/config/webpack.config';
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const path = require('path');
 
-export default {
+module.exports = {
   ...defaultConfig,
-  entry: './src/index.tsx',
-  output: {
-    path: _resolve(__dirname, 'build'),
-    filename: 'index.js',
-  },
   module: {
-    ..._module,
+    ...defaultConfig.module,
     rules: [
-      ..._module.rules,
+      ...defaultConfig.module.rules,
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: false, // Disable SVGO if it causes issues
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    ...defaultConfig.resolve,
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
 };
