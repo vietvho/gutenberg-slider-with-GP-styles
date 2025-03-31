@@ -20,7 +20,8 @@ import {
   ToggleControl,
   TabPanel,
   FontSizePicker,
-  AlignmentMatrixControl
+  AlignmentMatrixControl,
+  PanelRow
 } from '@wordpress/components';
 import useEmblaCarousel from 'embla-carousel-react';
 import "./editor.scss";
@@ -38,7 +39,7 @@ const WURLInput = URLInput as React.FC<URLInput.Props>;
 const WPanelColorSettings = PanelColorSettings as React.FC<PanelColorSettings.Props>;
 
 export default function Edit({ attributes, setAttributes }: BlockEditProps<BlockProps>) {
-  const { slides, showArrows, arrowIcon, showDots, slideWidthDesktop, arrowStyle, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap, autoPlay, roundedArrows } = attributes;
+  const { slides, showArrows, arrowIcon, showDots, slideWidthDesktop, arrowStyle, slideWidthMobile, slideHeight, overlay, dotsIcon, sliderGap, autoPlay, roundedArrows } = attributes;
   const pluginUrl = useMemo(() => window.emblaSliderData?.pluginUrl || '', [window.emblaSliderData]);
   const DEFAULT_SLIDE: SLIDE = { ...BASE_SLIDE,  background: `${pluginUrl}assets/placeholder.jpg`};
 
@@ -103,6 +104,8 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
             <>
               {tab.name === 'settings' && (
                 <div className='px-4' title="Slider Settings">
+                  <PanelBody title={`Arrows`} key={"arrows-settings"} initialOpen={false}>
+                  <br/>
                   <ToggleControl
                     label="Show Arrows"
                     checked={showArrows}
@@ -123,6 +126,7 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                    />
                   </div>
                   <ButtonGroup
+                    className='mb-4'
                     options={[
                       { value: "fill", text: "Fill" },
                       { value: "outline", text: "Outline"},
@@ -135,37 +139,34 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                     checked={roundedArrows}
                     onChange={() => setAttributes({ roundedArrows: !roundedArrows })}
                   />
+                  </PanelBody>
+                  <PanelBody title={`Dots`} key={"dots-settings"} initialOpen={false}>
+                    <br/>
+                    <ToggleControl
+                      label="Show Dots"
+                      checked={showDots}
+                      onChange={() => setAttributes({ showDots: !showDots })}
+                    />
 
-                  <ToggleControl
-                    label="Show Dots"
-                    checked={showDots}
-                    onChange={() => setAttributes({ showDots: !showDots })}
-                  />
-                  {showDots && (
-                    <div className="arrows flex gap-4 mb-4">
+                    {showDots && (
+                      <div className="arrows flex gap-4 mb-4">
+                        <ButtonGroup
+                          options={[
+                            { value: "CircleFill", icon: <Icon name="CircleFill" className='w-5 h-5' /> },
+                            { value: "CircleOutline", icon: <Icon name="CircleOutline" className='w-5 h-5' /> },
+                            { value: "SquareFill", icon: <Icon name="SquareFill" className='w-5 h-5' /> },
+                            { value: "RectangleFill", icon: <Icon name="RectangleFill" className='w-5 h-5' /> },
+                        
+                          ]}
+                          value={dotsIcon}
+                          onChange={(value) => setAttributes({ dotsIcon: value })}
+                        />
+                      </div>
 
-                      <MediaUpload
-                        onSelect={(media) => setAttributes({ dotSVG: media.url })}
-                        allowedTypes={['image']}
-                        render={({ open }) => (
-                          <Button onClick={open} isSecondary>
-                            {dotSVG ? 'Dot Icon' : 'Upload Dot Icon'}
-                          </Button>
-                        )}
-                      />
-                      <MediaUpload
-                        onSelect={(media) => setAttributes({ dotActiveSVG: media.url })}
-                        allowedTypes={['image']}
-                        render={({ open }) => (
-                          <Button onClick={open} isSecondary>
-                            {dotActiveSVG ? 'Change Active Dot Icon' : 'Upload Active Dot Icon'}
-                          </Button>
-                        )}
-                      />
-                    </div>
-
-                  )}
-
+                    )}
+                  </PanelBody>
+                  <PanelBody title={`Display Settings`} key={"display-settings"} initialOpen={false}>
+                    <br />
                   <ToggleControl
                     label="Overlay"
                     checked={overlay}
@@ -176,6 +177,9 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                     checked={autoPlay}
                     onChange={(value) => setAttributes({ autoPlay: value })}
                   />
+                  </PanelBody>
+                  <PanelBody title={`Slider`} key={"slider-settings"} initialOpen={false}>
+                    <br />
                   <RangeControl
                     label="Gap (px)"
                     value={sliderGap}
@@ -203,6 +207,7 @@ export default function Edit({ attributes, setAttributes }: BlockEditProps<Block
                     min={30}
                     max={100}
                   />
+                  </PanelBody>
                 </div>
               )}
               {tab.name === 'slides' && (

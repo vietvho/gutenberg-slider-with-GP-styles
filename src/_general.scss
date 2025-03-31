@@ -4,6 +4,7 @@ $mobile_screen: 960px;
 
 .wnslide {
   overflow: hidden;
+  user-select: none;
 }
 
 .wnslide__viewport {
@@ -62,11 +63,42 @@ $mobile_screen: 960px;
   transform: translateY(-50%);
   width: 100%;
   z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+
+  button{
+    opacity: 0.85;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    &.is-outlined {
+      background-color: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+
+      &:hover {
+        background-color: var(--accent);
+        color: var(--base-3);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.65;
+    }
+  }
 }
 
 
 
 // styling
+.absolute {
+  position: absolute;
+}
+
 .flex {
   display: flex;
 }
@@ -90,6 +122,19 @@ $mobile_screen: 960px;
 .mb-0 {
   margin-bottom: 0;
 }
+
+.bottom {
+  &-0 {
+    bottom: 0;
+  }
+}
+
+.left {
+  &-0 {
+    left: 0
+  }
+}
+
 .p{
   &-0 {
     padding: 0;
@@ -134,6 +179,12 @@ $mobile_screen: 960px;
   }
 }
 
+.min-h {
+  &-7 {
+    min-height: 28px;
+  }
+}
+
 .px-4 {
   padding-left: 4px;
   padding-right: 4px;
@@ -153,6 +204,12 @@ $mobile_screen: 960px;
   }
 }
 
+.z {
+  &-10 {
+    z-index: 10
+  }
+}
+
 .justify{
   &-center {
     justify-content: center;
@@ -164,6 +221,12 @@ $mobile_screen: 960px;
 
   &-end {
     justify-content: flex-end;
+  }
+}
+
+.\!justify {
+  &-start {
+    justify-content: flex-start !important;
   }
 }
 
@@ -211,4 +274,10 @@ $mobile_screen: 960px;
 
 .rotate-180 {
   transform: rotate(180deg);
+}
+
+.w {
+  &-full {
+    width: 100%;
+  }
 }

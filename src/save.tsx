@@ -11,20 +11,29 @@ type BlockProps = Omit<ATTR, "slides"> & {
 import "./frontend.scss";
 import { Icon } from './components/icon';
 export default function Save({ attributes }: BlockSaveProps<BlockProps>) {
-  const { slides, showArrows, arrowIcon, showDots, slideWidthDesktop, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap, roundedArrows } = attributes;
-  console.log(arrowIcon);
+  const { slides, showArrows, arrowIcon, showDots, slideWidthDesktop, slideWidthMobile, slideHeight, overlay, dotSVG, dotActiveSVG, sliderGap, roundedArrows, arrowStyle, dotsIcon } = attributes;
   return (
     <div {...useBlockProps.save( )} >
       <div className='wnslide'>
         {showArrows && (
           <div className="wnslide__arrows">
-            abc
-            <button className="wnslide__prev flex items-center p-2 rounded-full">
-              <Icon name={arrowIcon} className="wnslide__arrow-icon rotate-180" />
+            <button className={clsx("wnslide__prev rotate-180 p-2.5", roundedArrows && "flex items-center rounded-full",
+              arrowStyle === "outline" && "is-outlined"
+            )}>
+              <Icon name={arrowIcon} className="wnslide__arrow-icon " />
             </button>
-            <button className="wnslide__next flex p-2.5">
+            <button className={clsx("wnslide__next  p-2.5", roundedArrows && "flex items-center rounded-full",
+              arrowStyle === "outline" && "is-outlined"
+            )}>
               <Icon name={arrowIcon} className="wnslide__arrow-icon" />
             </button>
+          </div>
+        )}
+        {showDots && (
+          <div className="wnslide__dots w-full absolute bottom-0 z-10 left-0 flex justify-center">
+            <span role="button" className={clsx("wnslide__dot")}>
+              <Icon name={dotsIcon} className="wnslide__dot-icon " />
+            </span>
           </div>
         )}
         <div data-autoplay={attributes.autoPlay} className=" wnslide__viewport" >

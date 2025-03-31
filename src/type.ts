@@ -84,6 +84,10 @@ export const blockAttributes = {
     type: "string",
     default: "ThinChevron",
   },
+  dotsIcon: {
+    type: "string",
+    default: "CircleFill",
+  },
   dotSVG: {
     type: "string",
     default: "",
@@ -115,6 +119,22 @@ export const blockAttributes = {
   slideHeight: {
     type: "number",
     default: 68,
+  },
+  dotsHeight: {
+    type: "number",
+    default: 10,
+  },
+  dotsWidth: {
+    type: "number",
+    default: 10,
+  },
+  dotsRounded: {
+    type: "boolean",
+    default: false,
+  },
+  dotsColor: {
+    type: "string",
+    default: "var(--accent)",
   },
 };
 
