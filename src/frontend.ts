@@ -1,4 +1,5 @@
 import EmblaCarousel from "embla-carousel";
+import { addDotBtnsAndClickHandlers } from './fedots'
 
 document.addEventListener("DOMContentLoaded", () => {
   const wnslideNodes = document.querySelectorAll(".wnslide");
@@ -8,7 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const wnslidePrev = wnslideNode.querySelector(".wnslide__prev") as HTMLButtonElement;
     const wnslideNext = wnslideNode.querySelector(".wnslide__next") as HTMLButtonElement;
     const wnslideViewport = wnslideNode.querySelector(".wnslide__viewport") as HTMLElement;
-
+    const dotsNode = <HTMLElement>wnslideNode.querySelector('.wnslide__dots')
+    console.log(dotsNode, wnslideNode, wnslideNode.querySelector('.wnslide__dots'));
     if (!wnslideViewport) return;
 
     const wnslideApi = EmblaCarousel(wnslideViewport, { loop: false });
@@ -20,6 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     wnslideApi.on("select", updateButtons);
     updateButtons();
+
+    const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
+      wnslideApi,
+      dotsNode
+    )
+
+    wnslideApi.on('destroy', removeDotBtnsAndClickHandlers)
+
 
     wnslidePrev.addEventListener("click", () => wnslideApi.scrollPrev());
     wnslideNext.addEventListener("click", () => wnslideApi.scrollNext());

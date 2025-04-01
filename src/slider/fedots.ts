@@ -4,19 +4,20 @@ export const addDotBtnsAndClickHandlers = (emblaApi: EmblaCarouselType, dotsNode
   let dotNodes: HTMLElement[] = []
 
   const addDotBtnsWithClickHandlers = () => {
-    dotsNode.innerHTML = emblaApi
-      .scrollSnapList()
-      .map(() => '<button class="embla__dot" type="button"></button>')
-      .join('')
+    // dotsNode.innerHTML = emblaApi
+    //   .scrollSnapList()
+    //   .map(() => '<button class="embla__dot" type="button"></button>')
+    //   .join('')
 
     const scrollTo = (index:number) => {
       emblaApi.scrollTo(index)
     }
 
-    dotNodes = Array.from(dotsNode.querySelectorAll('.embla__dot')) as HTMLElement[];
+    dotNodes = Array.from(dotsNode.querySelectorAll('.wnslide__dot')) as HTMLElement[];
     dotNodes.forEach((dotNode, index) => {
       dotNode.addEventListener('click', () => scrollTo(index), false)
     })
+    console.log(dotNodes);
   }
 
   const toggleDotBtnsActive = () => {

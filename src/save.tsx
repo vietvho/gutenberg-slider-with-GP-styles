@@ -31,9 +31,11 @@ export default function Save({ attributes }: BlockSaveProps<BlockProps>) {
         )}
         {showDots && (
           <div className="wnslide__dots w-full absolute bottom-0 z-10 left-0 flex justify-center">
-            <span role="button" className={clsx("wnslide__dot")}>
+            {slides.map(slide => 
+              <span role="button" style={{"--dot-colour": `${slide.heading.color }`} as React.CSSProperties} className={clsx("wnslide__dot")}>
               <Icon name={dotsIcon} className="wnslide__dot-icon " />
             </span>
+            )}
           </div>
         )}
         <div data-autoplay={attributes.autoPlay} className=" wnslide__viewport" >

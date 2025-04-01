@@ -92,7 +92,21 @@ $mobile_screen: 960px;
   }
 }
 
+.wnslide__dot{
+  &s {
+    display: flex;
+    gap: 5px;
+  }
 
+  opacity: 0.8;
+  cursor: pointer;
+  color: var(--dot-colour);
+
+  &.is-active {
+    opacity: 1;
+    color: var(--accent);
+  }
+}
 
 // styling
 .absolute {
