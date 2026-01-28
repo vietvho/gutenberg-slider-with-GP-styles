@@ -4,7 +4,7 @@
   "description": " Slider, Modifying gutenber button with GeneratePress",
   "main": "index.js",
   "scripts": {
-    "build": "wp-scripts build src/frontend.ts src/index.tsx",
+    "build": "wp-scripts build src/frontend.ts src/index.tsx ",
     "start": "wp-scripts start src/frontend.ts src/index.tsx",
     "buildfe": "wp-scripts build src/frontend.js",
     "build:sass": "sass scss/frontend/style.scss css/frontend/style.css",
