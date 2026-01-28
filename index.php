@@ -17,7 +17,7 @@ class Winc_Customizer_Layout_Spacing {
         add_action('wp_head', [$this, 'apply_fe_css']);
         add_action('admin_footer', [$this, 'apply_admin_css']);
         add_filter('generateblocks_default_button_attributes', [$this,'winc_button_default_attributes'], 20);
-        add_action( 'wp_enqueue_scripts', [$this,'winc_enqueue_script'] );
+        // add_action( 'wp_enqueue_scripts', [$this,'winc_enqueue_script'] );
         add_action('init', [$this,'embla_slider_register_block']);
         add_action( 'enqueue_block_assets', [$this,'winc_slider_block_enqueue_block_assets'] );
         
@@ -180,7 +180,7 @@ class Winc_Customizer_Layout_Spacing {
                 --border-width:<?=$border_width;?>px;
                 --padding: <?=(int)$padding_button["button_top"]?>px <?=(int)$padding_button['button_right'];?>px <?=(int)$padding_button['button_bottom'];?>px <?=(int)$padding_button['button_left']?>px;
             }
-            <?= file_get_contents( __DIR__ . '/css/admin/style.css' );?>
+            /* <?= file_get_contents( __DIR__ . '/css/admin/style.css' );?> */
 
         </style>
     <?php }

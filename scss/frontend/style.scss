@@ -4,11 +4,10 @@ input[type="reset"],
 input[type="submit"],
 a.button,
 a.wp-block-button__link:not(.has-background) {
-  padding: var(--padding);
   border: var(--border-width) solid var(--accent);
-  border-radius: var(--border-width);
+  border-radius: var(--border-radius);
   transition: all 0.3s ease-in-out;
-  
+
   &.is-active,
   &:hover,
   &:active {
@@ -19,20 +18,18 @@ a.wp-block-button__link:not(.has-background) {
 }
 
 .is-style-outline button,
- html .is-style-outline input[type="button"],
+html .is-style-outline input[type="button"],
 .is-style-outline a.button,
 .is-style-outline a.wp-block-button__link:not(.has-background) {
-    padding: var(--padding);
-    background: transparent;
-    color: var(--accent);
-    border-radius: var(--border-width);
-    border: var(--border-width) solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: var(--border-radius);
 
-    &.is-active,
-    &:hover,
-    &:active {
-      color: var(--base-3);
-      background-color: var(--accent-hover);
-      border-color: var(--accent-hover);
-    }
+  &.is-active,
+  &:hover,
+  &:active {
+    color: var(--base-3);
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
 }

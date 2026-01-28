@@ -25,6 +25,8 @@ export type SLIDE = {
   background: string,
   heading: Heading,
   secondaryHeading: Heading,
+  gapPrimarySecondary: number,
+  gapSecondaryButton: number,
   buttons: BUTTON[],
   accordionContent: 'Additional slide details...'
 }
@@ -40,16 +42,18 @@ export const BASE_SLIDE: SLIDE = {
   background: BackgroundUrl,
   heading: {
     text: 'Primary Text',
-    sizes: [40,86],
+    sizes: [40, 86],
     tag: 'h2',
     color: '#fff'
   },
   secondaryHeading: {
     text: 'Secondary Text',
-    sizes: [16,16],
+    sizes: [16, 16],
     tag: 'p',
     color: '#fff'
   },
+  gapPrimarySecondary: 10,
+  gapSecondaryButton: 20,
   buttons: [DEFAULT_BUTTON],
   accordionContent: 'Additional slide details...'
 };
@@ -71,7 +75,7 @@ export const blockAttributes = {
     type: "string",
     default: "fill",
   },
-  
+
   autoPlay: {
     type: "boolean",
     default: false,
@@ -140,5 +144,5 @@ export const blockAttributes = {
 
 export type ATTR = {
   [K in keyof typeof blockAttributes]: (typeof blockAttributes[K]["default"]);
-}; 
+};
 

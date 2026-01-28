@@ -5,7 +5,6 @@
 .wp-block-custom-embla-slider .button {
   border-radius: var(--border-radius);
   border: var(--border-width) solid var(--accent);
-  padding: var(--padding);
 }
 
 .wp-block-custom-embla-slider .button.is-style-outline,
